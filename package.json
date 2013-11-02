@@ -1,0 +1,46 @@
+{
+  "name": "concurix-monitor",
+  "version": "0.4.0",
+  "description": "Concurix monitoring agent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Concurix/concurix-monitor"
+  },
+  "keywords": [
+    "trace",
+    "tracing",
+    "monitoring",
+    "tracer",
+    "profile",
+    "profiling",
+    "profiler",
+    "performance",
+    "real-time",
+    "realtime",
+    "analysis",
+    "analytics",
+    "bottlenecks",
+    "data",
+    "visualizer",
+    "code diagram",
+    "response time",
+    "metrics",
+    "concurix",
+    "multicore",
+    "manycore"
+  ],
+ "homepage": "http://www.concurix.com",
+  "author": "Concurix Corporation, <support@concurix.com> (http://www.concurix.com)",
+  "licenses": [
+    {
+      "type":"Licensed under the Concurix Terms Of Service",
+      "url": "http://www.concurix.com/tos_main"
+    }],
+  "bugs": {
+    "url": "https://github.com/Concurix/concurix-monitor/issues"
+  }
+}
