@@ -49,6 +49,6 @@
   },
   "dependencies": {
     "concurix-wrap": "latest",
-    "module-stats": "Concurix/module-stats"
+    "module-stats": "git+https://github.com/Concurix/module-stats.git"
   }
 }
