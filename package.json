@@ -46,5 +46,9 @@
   "devDependencies": {
     "mocha": "~1.13.0",
     "should": "~1.3.0"
+  },
+  "dependencies": {
+    "concurix-wrap": "latest",
+    "module-stats": "Concurix/module-stats"
   }
 }

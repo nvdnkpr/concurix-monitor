@@ -29,11 +29,18 @@ module.exports = Tracer;
 
 function Tracer(options){
   var tracer = {
-    start: function(){ return true;},
+    blacklistedModeul
+    start: function(){
+        this.running = true;
+        if (!this.origRequire){
+          this.wrapRequire();
+        }
+      },
     stop: function() {return true;}
   }
   return tracer;
 }
+
 function other(options){
   options = options || {};
   this.nestStack = [];
