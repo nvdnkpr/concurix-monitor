@@ -13,9 +13,9 @@
 // Make the object constructed by the concurixjs function be a singleton.
 var Tracer = require('./tracer');
 
-var tracer = null;
+var singleton = null;
 module.exports = function concurixMonitor(options){
-  if (!tracer) {
+  if (!singleton) {
 
     var defaultOptions = {
       archiveHost: 'api.concurix.com', // Change to localhost for local testing
@@ -36,11 +36,17 @@ module.exports = function concurixMonitor(options){
       defaultOptions[name] = options[name];
     })
   
-    tracer = Tracer({
+    var tracer = Tracer({
       clearModulesCache: options.clearModulesCache,
       blacklistedModules: options.blacklistedModules,
       whitelistedModules: options.whitelistedModules
     });
+
+    singleton = {
+      start: function start(){ return tracer.start();},
+      stop: function stop(){ return tracer.stop();},
+      running: function running(){ return tracer.running;}
+    };
   }
-  return tracer;
+  return singleton;
 }
