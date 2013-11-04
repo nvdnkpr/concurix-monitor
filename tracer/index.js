@@ -30,6 +30,7 @@ module.exports = Tracer;
 function Tracer(options){
   var tracer = {
     blacklistedModules: options.blacklistedModules,
+    nestRequire: [],
     start: function(){
         this.running = true;
         if (!this.origRequire){
@@ -77,7 +78,7 @@ function Tracer(options){
         
       var isNativeExtension = (name || '').match(/\.node$/);
       var shouldWrapExports = !isNativeExtension && 
-          !tracer.isModuleBlacklisted(_module.requireId);
+          !tracer.isModuleBlacklisted(name);
         
       if(shouldWrapExports){
         var _exports = trace.ret;
