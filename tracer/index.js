@@ -62,26 +62,28 @@ function Tracer(options){
       proto.require = this.origRequire;      
     },
 
+    // the this pointer will be incorrect, use tracer obj in closure
     requireBeforeHook: function requireBeforeHook(trace, clientState){
-      this.pushNestRequire(trace);
+      tracer.pushNestRequire(trace);
     },
 
+    // the this pointer will be incorrect, use tracer obj in closure
     requireAfterHook: function requireAfterHook(trace, clientState){
       var name = trace.args[0];
       var options = {
-        moduleId: this.getModuleId(trace),
-        moduleTop: this.getRequireTop(trace)
+        moduleId: tracer.getModuleId(trace),
+        moduleTop: tracer.getRequireTop(trace)
       };
         
       var isNativeExtension = (name || '').match(/\.node$/);
       var shouldWrapExports = !isNativeExtension && 
-          !this.isModuleBlacklisted(_module.requireId);
+          !tracer.isModuleBlacklisted(_module.requireId);
         
       if(shouldWrapExports){
         var _exports = trace.ret;
         mstats.wrap(name, _exports, options);
-              }
-      this.popNestRequire(trace);
+      }
+      tracer.popNestRequire(trace);
     },
 
     isModuleBlacklisted: function isModuleBlacklisted(requireId){
