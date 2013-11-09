@@ -36,11 +36,7 @@ module.exports = function concurixMonitor(options){
       defaultOptions[name] = options[name];
     })
   
-    var tracer = Tracer({
-      clearModulesCache: options.clearModulesCache,
-      blacklistedModules: options.blacklistedModules,
-      whitelistedModules: options.whitelistedModules
-    });
+    var tracer = Tracer(defaultOptions);
 
     singleton = {
       start: function start(){ return tracer.start();},
