@@ -29,6 +29,7 @@ module.exports = Tracer;
 
 function Tracer(options){
   var tracer = {
+    accountKey: options.accountKey,
     blacklistedModules: options.blacklistedModules,
     nestRequire: [],
     start: function(){
@@ -73,7 +74,8 @@ function Tracer(options){
       var name = trace.args[0];
       var options = {
         moduleId: tracer.getModuleId(trace),
-        moduleTop: tracer.getRequireTop(trace)
+        moduleTop: tracer.getRequireTop(trace),
+        accountKey: tracer.accountKey
       };
         
       var isNativeExtension = (name || '').match(/\.node$/);
@@ -125,6 +127,7 @@ function Tracer(options){
       for (var i = keys.length - 1; i >= 0; i--){
         var k = keys[i]
         if (cache[k].exports == trace.ret){
+          console.log('require cache info', cache[k]);
           return cache[k].id
         }
       }
