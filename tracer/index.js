@@ -127,7 +127,6 @@ function Tracer(options){
       for (var i = keys.length - 1; i >= 0; i--){
         var k = keys[i]
         if (cache[k].exports == trace.ret){
-          console.log('require cache info', cache[k]);
           return cache[k].id
         }
       }
