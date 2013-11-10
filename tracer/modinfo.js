@@ -32,14 +32,41 @@ ModInfo.prototype.getRequireTop = function getRequireTop(){
   if( this.requireTop.charAt(0) != '.' || !this.mod ){
     return this.requireTop;
   }
-  var toks = this.mod.id.split(path.sep);
+  var top = bottomTopModuleFromPath(this.mod.id);
+
+  return top || this.requireTop;
+}
+
+ModInfo.prototype.getTopChain = function getTopChain(){
+  var chain = [];
+  if( !this.mod ){
+    chain.push(this.requireTop);
+    return chain;
+  }
+
+  var parent = this.mod.parent;
+  var top;
+  while( parent ){
+    top = bottomTopModuleFromPath(parent.id);
+    if( top ){
+      chain.push(top);
+    }
+    parent = parent.parent;
+  }
+  return chain;
+}
+
+//helper functions
+
+function bottomTopModuleFromPath(filename){
+  var toks = filename.split(path.sep);
   var i;
   for( i = toks.length -1 ; i >= 0; i--){
     if(toks[i] == 'node_modules' && i < toks.length -1 ){
       return toks[i+1];
     }
   }
-  return this.requireTop;
+  return null;
 }
 
 module.exports = ModInfo;

@@ -79,11 +79,11 @@ function Tracer(options){
         moduleTop: modinfo.getRequireTop(trace),
         accountKey: tracer.accountKey
       };
-      console.log('computed top is ', options.moduleTop, ' for ',  tracer.getRequireTop(trace));
+      //console.log('computed top is ', options.moduleTop, ' for ',  tracer.getRequireTop(trace), 'chain ', modinfo.getTopChain());
       //console.log('trying to wrap ', options);
       var isNativeExtension = (name || '').match(/\.node$/);
       var shouldWrapExports = !isNativeExtension && 
-          !tracer.isModuleBlacklisted(name);
+          !tracer.isModuleBlacklisted(name, modinfo);
         
       if(shouldWrapExports){
         var _exports = trace.ret;
@@ -92,13 +92,16 @@ function Tracer(options){
       tracer.popNestRequire(trace);
     },
 
-    isModuleBlacklisted: function isModuleBlacklisted(requireId){
+    isModuleBlacklisted: function isModuleBlacklisted(requireId, modinfo){
       if (!this.blacklistedModules){
         return;
       }
+      var chain = modinfo.getTopChain();
+      chain.push(requireId);
       var blacklistedModules = this.blacklistedModules;
       for (var i = blacklistedModules.length - 1; i >= 0; i--){
-        if (blacklistedModules[i] === requireId) {
+        if (chain.indexOf(blacklistedModules[i]) != -1 ) {
+          console.log('module ', requireId, 'is blacklisted from ', blacklistedModules[i]);
           return true;
         }
       }

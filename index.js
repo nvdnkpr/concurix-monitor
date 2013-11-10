@@ -28,7 +28,7 @@ module.exports = function concurixMonitor(options){
       enableTracer: true,
       clearModulesCache: true,
       whitelistedModules: null,
-      blacklistedModules: ['util', 'cluster', 'console', 'rfile', 'callsite', 'browserify-middleware', 'bindings', './services/api/s3-2006-03-01', './services/api/sns-2010-03-31']
+      blacklistedModules: ['util', 'cluster', 'console', 'rfile', 'callsite', 'browserify-middleware', 'bindings', 'aws-sdk']
     };
   
     options = options || {};
