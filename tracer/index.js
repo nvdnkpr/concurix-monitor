@@ -23,6 +23,7 @@ var addHrTimes = cxUtil.addHrTimes;
 var wrap = require('concurix-wrap');
 var mstats = require('module-stats');
 var cache = require.cache;
+var ModInfo = require('./modinfo');
 
 
 module.exports = Tracer;
@@ -72,12 +73,14 @@ function Tracer(options){
     // the this pointer will be incorrect, use tracer obj in closure
     requireAfterHook: function requireAfterHook(trace, clientState){
       var name = trace.args[0];
+      var modinfo = new ModInfo(trace.ret, tracer.getRequireTop(trace));
       var options = {
-        moduleId: tracer.getModuleId(trace),
-        moduleTop: tracer.getRequireTop(trace),
+        moduleId: modinfo.getModuleId(trace),
+        moduleTop: modinfo.getRequireTop(trace),
         accountKey: tracer.accountKey
       };
-        
+      console.log('computed top is ', options.moduleTop, ' for ',  tracer.getRequireTop(trace));
+      //console.log('trying to wrap ', options);
       var isNativeExtension = (name || '').match(/\.node$/);
       var shouldWrapExports = !isNativeExtension && 
           !tracer.isModuleBlacklisted(name);
@@ -120,19 +123,7 @@ function Tracer(options){
       //if we don't have a top level name in the stack, then we are likely working
       //directly with user modules as opposed to installed npm's.  return that
       return this.nestRequire[this.nestRequire.length -1 ] || trace.args[0];       
-    },
-
-    getModuleId: function getModuleId(trace){
-      var keys = Object.keys(cache);
-      for (var i = keys.length - 1; i >= 0; i--){
-        var k = keys[i]
-        if (cache[k].exports == trace.ret){
-          return cache[k].id
-        }
-      }
-      //could not find it, it should be a built-in
-      return trace.args[0];
-    }   
+    }, 
   }
   return tracer;
 }
