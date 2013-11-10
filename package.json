@@ -33,19 +33,21 @@
     "multicore",
     "manycore"
   ],
- "homepage": "http://www.concurix.com",
+  "homepage": "http://www.concurix.com",
   "author": "Concurix Corporation, <support@concurix.com> (http://www.concurix.com)",
   "licenses": [
     {
-      "type":"Licensed under the Concurix Terms Of Service",
+      "type": "Licensed under the Concurix Terms Of Service",
       "url": "http://www.concurix.com/tos_main"
-    }],
+    }
+  ],
   "bugs": {
     "url": "https://github.com/Concurix/concurix-monitor/issues"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
-    "should": "~1.3.0"
+    "should": "~1.3.0",
+    "concurix-wrap": "0.0.6"
   },
   "dependencies": {
     "concurix-wrap": "latest",

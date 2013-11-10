@@ -31,7 +31,7 @@ module.exports = Tracer;
 function Tracer(options){
   var tracer = {
     accountKey: options.accountKey,
-    blacklistedModules: options.blacklistedModules,
+    rules: options.rules,
     nestRequire: [],
     start: function(){
         this.running = true;
@@ -73,7 +73,7 @@ function Tracer(options){
     // the this pointer will be incorrect, use tracer obj in closure
     requireAfterHook: function requireAfterHook(trace, clientState){
       var name = trace.args[0];
-      var modinfo = new ModInfo(trace.ret, tracer.getRequireTop(trace));
+      var modinfo = new ModInfo(trace.ret, trace.args[0], tracer.getRequireTop(trace), tracer.rules);
       var options = {
         moduleId: modinfo.getModuleId(trace),
         moduleTop: modinfo.getRequireTop(trace),
@@ -82,30 +82,15 @@ function Tracer(options){
       //console.log('computed top is ', options.moduleTop, ' for ',  tracer.getRequireTop(trace), 'chain ', modinfo.getTopChain());
       //console.log('trying to wrap ', options);
       var isNativeExtension = (name || '').match(/\.node$/);
-      var shouldWrapExports = !isNativeExtension && 
-          !tracer.isModuleBlacklisted(name, modinfo);
+
+
+      var shouldWrapExports = !isNativeExtension && !modinfo.isBlacklisted(); 
         
       if(shouldWrapExports){
         var _exports = trace.ret;
         mstats.wrap(name, _exports, options);
       }
       tracer.popNestRequire(trace);
-    },
-
-    isModuleBlacklisted: function isModuleBlacklisted(requireId, modinfo){
-      if (!this.blacklistedModules){
-        return;
-      }
-      var chain = modinfo.getTopChain();
-      chain.push(requireId);
-      var blacklistedModules = this.blacklistedModules;
-      for (var i = blacklistedModules.length - 1; i >= 0; i--){
-        if (chain.indexOf(blacklistedModules[i]) != -1 ) {
-          console.log('module ', requireId, 'is blacklisted from ', blacklistedModules[i]);
-          return true;
-        }
-      }
-      return false;
     },
 
     pushNestRequire: function pushNestRequire(trace){

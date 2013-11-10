@@ -12,8 +12,11 @@
 
 // Make the object constructed by the concurixjs function be a singleton.
 var Tracer = require('./tracer');
+var rules = require('./rules');
 
 var singleton = null;
+
+
 module.exports = function concurixMonitor(options){
   if (!singleton) {
 
@@ -28,7 +31,8 @@ module.exports = function concurixMonitor(options){
       enableTracer: true,
       clearModulesCache: true,
       whitelistedModules: null,
-      blacklistedModules: ['util', 'cluster', 'console', 'rfile', 'callsite', 'browserify-middleware', 'bindings', 'aws-sdk']
+      blacklistedModules: ['util', 'cluster', 'console', 'rfile', 'callsite', 'browserify-middleware', 'bindings'],
+      rules: rules
     };
   
     options = options || {};
@@ -36,6 +40,8 @@ module.exports = function concurixMonitor(options){
       defaultOptions[name] = options[name];
     })
   
+    console.log('rules', rules);
+
     var tracer = Tracer(defaultOptions);
 
     singleton = {
@@ -46,3 +52,5 @@ module.exports = function concurixMonitor(options){
   }
   return singleton;
 }
+
+module.exports.rules = rules;

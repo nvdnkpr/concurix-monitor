@@ -1,10 +1,12 @@
 var cache = require.cache;
 var path = require('path');
 
-function ModInfo(exportedModule, requireTop){
+function ModInfo(exportedModule, requireId, requireTop, rules){
+  this.requireId = requireId;
   this.requireTop = requireTop;
   this.exportedModule = exportedModule;
   this.mod = this.getModuleEntry(exportedModule);
+  this.rules = rules;
 }
 
 ModInfo.prototype.getModuleEntry = function getModuleEntry(){
@@ -54,6 +56,19 @@ ModInfo.prototype.getTopChain = function getTopChain(){
     parent = parent.parent;
   }
   return chain;
+}
+
+ModInfo.prototype.isBlacklisted = function isBlacklisted(){
+  var chain = this.getTopChain();
+  chain.push(this.requireId);
+  var i = 0;
+  for( i = 0; i < chain.length; i++ ){
+    if( this.rules.modRules[chain[i]] && this.rules.modRules[chain[i]].blacklist ){
+      console.log('module ', this.requireId, 'is blacklisted');
+      return true;
+    } 
+  }
+  return false;
 }
 
 //helper functions
