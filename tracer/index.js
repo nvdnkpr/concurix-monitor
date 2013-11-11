@@ -74,10 +74,12 @@ function Tracer(options){
     requireAfterHook: function requireAfterHook(trace, clientState){
       var name = trace.args[0];
       var modinfo = new ModInfo(trace.ret, trace.args[0], tracer.getRequireTop(trace), tracer.rules);
+      var top = modinfo.getRequireTop(trace);
       var options = {
         moduleId: modinfo.getModuleId(trace),
-        moduleTop: modinfo.getRequireTop(trace),
-        accountKey: tracer.accountKey
+        moduleTop: top,
+        accountKey: tracer.accountKey,
+        rules: tracer.rules.modRules[top]
       };
       //console.log('computed top is ', options.moduleTop, ' for ',  tracer.getRequireTop(trace), 'chain ', modinfo.getTopChain());
       //console.log('trying to wrap ', options);
