@@ -77,9 +77,9 @@ function bottomTopModuleFromPath(filename){
   var toks = filename.split(path.sep);
   var i;
   for( i = toks.length -1 ; i >= 0; i--){
-    if(toks[i] == 'node_modules' && i < toks.length -1 ){
+    if((toks[i] == 'node_modules' || toks[i] == 'concurix') && i < toks.length -1 ){
       return toks[i+1];
-    }
+    } 
   }
   return null;
 }

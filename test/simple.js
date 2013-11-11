@@ -23,6 +23,5 @@ describe('basic tests', function(){
       var util = require('util');
       wrap.isWrapper(util.isDate).should.be.false;
     });
-  });
-       
+  });   
 });
