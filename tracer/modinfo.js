@@ -64,7 +64,6 @@ ModInfo.prototype.isBlacklisted = function isBlacklisted(){
   var i = 0;
   for( i = 0; i < chain.length; i++ ){
     if( this.rules.modRules[chain[i]] && this.rules.modRules[chain[i]].blacklist ){
-      console.log('module ', this.requireId, 'is blacklisted');
       return true;
     } 
   }

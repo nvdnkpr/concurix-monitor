@@ -40,8 +40,6 @@ module.exports = function concurixMonitor(options){
       defaultOptions[name] = options[name];
     })
   
-    console.log('rules', rules);
-
     var tracer = Tracer(defaultOptions);
 
     singleton = {
