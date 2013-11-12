@@ -92,6 +92,7 @@ function Tracer(options){
         var _exports = trace.ret;
         mstats.wrap(name, _exports, options);
       }
+ 
       tracer.popNestRequire(trace);
     },
 
