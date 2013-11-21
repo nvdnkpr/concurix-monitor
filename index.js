@@ -31,6 +31,7 @@ module.exports = function concurixMonitor(options){
       enableTracer: true,
       clearModulesCache: true,
       whitelistedModules: null,
+      // TODO ignored?
       blacklistedModules: ['util', 'cluster', 'console', 'rfile', 'callsite', 'browserify-middleware', 'bindings'],
       rules: rules
     };
