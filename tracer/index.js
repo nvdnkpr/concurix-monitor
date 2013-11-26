@@ -56,6 +56,7 @@ function Tracer(options){
           .before(this.requireBeforeHook)
           .after(this.requireAfterHook)
           .state(globalState)
+          .nameIfNeeded('require')
           .getProxy();
       }      
     },
@@ -73,6 +74,7 @@ function Tracer(options){
     // the this pointer will be incorrect, use tracer obj in closure
     requireAfterHook: function requireAfterHook(trace, clientState){
       var name = trace.args[0];
+      //console.log("after require(%s)", name)
       var modinfo = new ModInfo(trace.ret, trace.args[0], tracer.getRequireTop(trace), tracer.rules);
       var top = modinfo.getRequireTop(trace);
       var options = {
