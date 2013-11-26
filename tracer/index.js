@@ -89,8 +89,7 @@ function Tracer(options){
       var shouldWrapExports = !isNativeExtension && !modinfo.isBlacklisted(); 
         
       if(shouldWrapExports){
-        var _exports = trace.ret;
-        mstats.wrap(name, _exports, options);
+        trace.ret = mstats.wrap(name, trace.ret, options);
       }
  
       tracer.popNestRequire(trace);
