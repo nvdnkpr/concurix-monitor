@@ -87,9 +87,13 @@ function Tracer(options){
       //console.log('trying to wrap ', options);
       var isNativeExtension = (name || '').match(/\.node$/);
 
+      var blacklisted = false;
+      if (modinfo.isBlacklisted()) {
+        blacklisted = true;
+        mstats.blacklist(trace.ret);
+      }
+      var shouldWrapExports = !isNativeExtension && !blacklisted;
 
-      var shouldWrapExports = !isNativeExtension && !modinfo.isBlacklisted(); 
-        
       if(shouldWrapExports){
         trace.ret = mstats.wrap(name, trace.ret, options);
       }
