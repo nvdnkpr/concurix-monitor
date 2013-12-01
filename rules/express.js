@@ -14,5 +14,9 @@ module.exports = {
     emit: { skip: true },
     addListerer: { skip: true},
     removeListener: {skip: true}
+  },
+  subModules: {
+    './request': {blacklist: true},
+    './response': {blacklist: true}
   }
 };

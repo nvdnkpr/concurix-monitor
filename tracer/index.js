@@ -93,6 +93,7 @@ function Tracer(options){
         mstats.blacklist(trace.ret);
       }
       var shouldWrapExports = !isNativeExtension && !blacklisted;
+      //console.log('trying to wrap ', trace.args[0], tracer.nestRequire);
 
       if(shouldWrapExports){
         trace.ret = mstats.wrap(name, trace.ret, options);
