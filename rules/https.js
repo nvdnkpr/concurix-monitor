@@ -1,7 +1,12 @@
 module.exports = {
+  all: {
+    skipKeys: true
+  },
   keys: {
-    addListener: {skip: true},
-    removeListener: {skip: true},
-    emit: {skip: true}
+    ClientRequest: {whitelist: true},
+    get: {whitelist: true},
+    createServer: {whitelist: true},
+    createClient: {whitelist: true},
+    Server: {whitelist: true}
   }
 };

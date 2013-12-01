@@ -1,10 +1,10 @@
 module.exports = {
+  all: {
+    skipKeys: true
+  },
   keys: {
-    filters: {skip: true},
-    utils: {skip: true},
-    Parser: {skip: true},
-    Lexer: {skip: true},
-    nodes: {skip: true},
-    runtime: {skip: true}
+    compile: {whitelist: true},
+    render: {whitelist: true},
+    renderFile: {whitelist: true}
   }
 };
