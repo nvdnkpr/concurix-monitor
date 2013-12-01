@@ -61,11 +61,12 @@ ModInfo.prototype.getTopChain = function getTopChain(){
 ModInfo.prototype.isBlacklisted = function isBlacklisted(){
   var chain = this.getTopChain();
   chain.push(this.requireId);
+  var blacklist = this.rules.blacklist();
   var i = 0;
   for( i = 0; i < chain.length; i++ ){
-    if( this.rules.modRules[chain[i]] && this.rules.modRules[chain[i]].blacklist ){
+    if (blacklist[chain[i]]) {
       return true;
-    } 
+    }
   }
   return false;
 }
