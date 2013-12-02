@@ -16,27 +16,29 @@ For more information, visit [www.concurix.com](http://www.concurix.com).
     $ npm install concurix-monitor
 
 ## Quick Start
-1. Include the following snippet before any other ``require`` statement:
+
+1. Login on to [www.concurix.com](http://www.concurix.com) and create a project.  You can find your account key here.
+
+2. Include the following snippet before any other ``require`` statement:
 
  ```js
  var cx = require('concurix-monitor')({accountKey: <your account key> });
  cx.start();
  ```
 
-2. Run your app
+3. Run your app
  
  ```
  $ node app.js
  ```
 
-3. Visit [www.concurix.com/dashboard](http://www.concurix.com/dashboard) -> Select *Guest Project for Localhost* to view performance graphs.
+4. Visit [www.concurix.com/dashboard](http://www.concurix.com/dashboard) -> and select your project to view performance graphs.
 
-Note that, by default, the online dashboard will try to connect  to ``http://localhost``. If you'd like to use anything other than ``localhost`` you should sign up for [concurix.com](http://www.concurix.com) and create your custom project.
 
 ## API
 
 ### concurix-monitor(opts:Object)
-Initializes tracer and debugger. The tracer automatically wraps every function found in the exports object returned by ``require``. This allows the tracer to partially reconstruct and visualize the call tree of your running code. The debugger enables steb-by-step debugging, REPL and live code editing of your application. In case when clustering is enabled only the master process will be controlled by the debugger.
+Initializes tracer. The tracer automatically wraps every function found in the exports object returned by ``require``. This allows the tracer to partially reconstruct and visualize the call tree of your running code. 
 
 The following options are suported:
 
