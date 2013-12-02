@@ -72,7 +72,7 @@ ModInfo.prototype.isBlacklisted = function isBlacklisted(){
   var subModRules = this.rules.modRules[this.requireTop] && this.rules.modRules[this.requireTop].subModules;
   if( subModRules && subModRules[this.requireId] ){
     var ret = subModRules[this.requireId].blacklist;
-    if( ret ){ console.log('blacklisting ', this.requireId, this.requireTop);}
+    //if( ret ){ console.log('blacklisting ', this.requireId, this.requireTop);}
     return ret;
   }
 }
