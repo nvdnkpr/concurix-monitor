@@ -50,6 +50,6 @@
   },
   "dependencies": {
     "concurix-wrap": "~0.0.14",
-    "module-stats": "git+https://github.com/Concurix/module-stats.git"
+    "module-stats": "~0.4.2"
   }
 }
