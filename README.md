@@ -19,14 +19,14 @@ For more information, visit [www.concurix.com](http://www.concurix.com).
 1. Include the following snippet before any other ``require`` statement:
 
  ```js
- var cx = require('concurix-monitor')();
+ var cx = require('concurix-monitor')({accountKey: <your account key> });
  cx.start();
  ```
 
 2. Run your app
  
  ```
- $ node --expose-debug-as=v8debug app.js
+ $ node app.js
  ```
 
 3. Visit [www.concurix.com/dashboard](http://www.concurix.com/dashboard) -> Select *Guest Project for Localhost* to view performance graphs.
